@@ -1,4 +1,4 @@
-extends "res://Scripts/Core/Component.gd"
+extends "res://Scripts/Core/GameComponent.gd"
 
 signal health_changed(new_health: float, old_health: float)
 signal health_depleted

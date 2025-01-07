@@ -1,5 +1,5 @@
 extends Node
-class_name Component
+class_name GameComponent
 
 # Basic component properties
 @export var enabled := true

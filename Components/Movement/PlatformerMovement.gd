@@ -1,4 +1,4 @@
-extends "res://Scripts/Core/Component.gd"
+extends "res://Scripts/Core/GameComponent.gd"
 
 @export_group("Movement")
 @export var move_speed := 300.0

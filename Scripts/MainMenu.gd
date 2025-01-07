@@ -1,20 +1,24 @@
 extends Control
 
 @onready var create_dialog = $CreateDialog
-@onready var create_button = $MenuButtons/CreateButton
-@onready var play_button = $MenuButtons/PlayButton
-@onready var load_button = $MenuButtons/LoadButton
-@onready var quit_button = $MenuButtons/QuitButton
-@onready var name_edit = $CreateDialog/VBoxContainer/NameEdit
-@onready var create_confirm_button = $CreateDialog/VBoxContainer/CreateConfirmButton
+@onready var create_button = $CenterContainer/VBoxContainer/MenuButtons/CreateButton
+@onready var play_button = $CenterContainer/VBoxContainer/MenuButtons/PlayButton
+@onready var load_button = $CenterContainer/VBoxContainer/MenuButtons/LoadButton
+@onready var quit_button = $CenterContainer/VBoxContainer/MenuButtons/QuitButton
+@onready var name_edit = $CreateDialog/CenterContainer/VBoxContainer/NameEdit
+@onready var create_confirm_button = $CreateDialog/CenterContainer/VBoxContainer/CreateConfirmButton
 
 func _ready():
 	# Connect button signals
-	create_button.connect("pressed", Callable(self, "_on_create_pressed"))
-	play_button.connect("pressed", Callable(self, "_on_play_pressed"))
-	load_button.connect("pressed", Callable(self, "_on_load_pressed"))
-	quit_button.connect("pressed", Callable(self, "_on_quit_pressed"))
-	create_confirm_button.connect("pressed", Callable(self, "_on_create_confirm"))
+	if create_button and play_button and load_button and quit_button and create_confirm_button:
+		create_button.connect("pressed", Callable(self, "_on_create_pressed"))
+		play_button.connect("pressed", Callable(self, "_on_play_pressed"))
+		load_button.connect("pressed", Callable(self, "_on_load_pressed"))
+		quit_button.connect("pressed", Callable(self, "_on_quit_pressed"))
+		create_confirm_button.connect("pressed", Callable(self, "_on_create_confirm"))
+	else:
+		push_error("Some menu buttons are missing!")
+		return
 	
 	# Add escape key handling
 	Events.connect("game_paused", Callable(self, "_on_game_paused"))
@@ -29,9 +33,13 @@ func _input(event):
 		Events.emit_signal("game_paused")
 
 func _on_create_pressed():
-	create_dialog.show()
+	if create_dialog:
+		create_dialog.show()
 
 func _on_create_confirm():
+	if not name_edit:
+		return
+		
 	var player_name = name_edit.text.strip_edges()
 	if player_name.length() > 0:
 		Settings.player_name = player_name

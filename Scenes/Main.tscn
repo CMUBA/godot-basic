@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://hnp60lkxj30u"]
+[gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" uid="uid://yikutnoygm3e" path="res://Scripts/MainMenu.gd" id="1"]
+[ext_resource type="Script" path="res://Scripts/MainMenu.gd" id="1"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -20,76 +20,78 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0784314, 0.0784314, 0.0784314, 1)
 
-[node name="Title" type="Label" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -200.0
-offset_top = 100.0
-offset_right = 200.0
-offset_bottom = 150.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Hero Adventure"
 horizontal_alignment = 1
 
-[node name="MenuButtons" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -70.0
-offset_right = 100.0
-offset_bottom = 70.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 20
-
-[node name="CreateButton" type="Button" parent="MenuButtons"]
+[node name="MenuButtons" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "Create New Game"
+theme_override_constants/separation = 10
 
-[node name="PlayButton" type="Button" parent="MenuButtons"]
+[node name="CreateButton" type="Button" parent="CenterContainer/VBoxContainer/MenuButtons"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "Create New Hero"
+
+[node name="PlayButton" type="Button" parent="CenterContainer/VBoxContainer/MenuButtons"]
+custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 text = "Play"
 
-[node name="LoadButton" type="Button" parent="MenuButtons"]
+[node name="LoadButton" type="Button" parent="CenterContainer/VBoxContainer/MenuButtons"]
+custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 text = "Load Game"
 
-[node name="QuitButton" type="Button" parent="MenuButtons"]
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer/MenuButtons"]
+custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 text = "Quit"
 
 [node name="CreateDialog" type="Window" parent="."]
-title = "Create New Game"
+title = "Create New Hero"
 initial_position = 2
 size = Vector2i(400, 200)
 visible = false
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CreateDialog"]
+[node name="CenterContainer" type="CenterContainer" parent="CreateDialog"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = 20.0
-offset_right = -20.0
-offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CreateDialog/CenterContainer"]
+layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="NameLabel" type="Label" parent="CreateDialog/VBoxContainer"]
+[node name="NameLabel" type="Label" parent="CreateDialog/CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "Enter Your Name:"
+text = "Enter Hero Name:"
+horizontal_alignment = 1
 
-[node name="NameEdit" type="LineEdit" parent="CreateDialog/VBoxContainer"]
+[node name="NameEdit" type="LineEdit" parent="CreateDialog/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+alignment = 1
+placeholder_text = "Hero Name"
 
-[node name="CreateConfirmButton" type="Button" parent="CreateDialog/VBoxContainer"]
+[node name="CreateConfirmButton" type="Button" parent="CreateDialog/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Create"
