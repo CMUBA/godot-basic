@@ -16,10 +16,17 @@ func _ready():
 	quit_button.connect("pressed", Callable(self, "_on_quit_pressed"))
 	create_confirm_button.connect("pressed", Callable(self, "_on_create_confirm"))
 	
+	# Add escape key handling
+	Events.connect("game_paused", Callable(self, "_on_game_paused"))
+	
 	# Check if save exists
 	if not Settings.has_setting("player_name"):
 		play_button.disabled = true
 		load_button.disabled = true
+
+func _input(event):
+	if event.is_action_pressed("ui_cancel"):
+		Events.emit_signal("game_paused")
 
 func _on_create_pressed():
 	create_dialog.show()
@@ -35,14 +42,19 @@ func _on_create_confirm():
 		_on_play_pressed()
 
 func _on_play_pressed():
-	# Start new game
+	Events.emit_signal("game_started")
 	get_tree().change_scene_to_file("res://Scenes/Levels/Level1.tscn")
 
 func _on_load_pressed():
-	# Load saved game
 	if Settings.has_setting("current_level"):
 		var level = Settings.get_setting("current_level", 1)
 		get_tree().change_scene_to_file("res://Scenes/Levels/Level%d.tscn" % level)
 
 func _on_quit_pressed():
-	get_tree().quit() 
+	get_tree().quit()
+
+func _on_game_paused():
+	if not visible:
+		show()
+	else:
+		hide() 
