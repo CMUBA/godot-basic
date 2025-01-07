@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://Entities/Hero/Hero.gd" id="1"]
+[ext_resource type="PackedScene" path="res://lib/comedot/Components/Physics/CharacterBodyComponent.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://lib/comedot/Components/Control/PlatformerControlComponent.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://lib/comedot/Components/Control/JumpControlComponent.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://lib/comedot/Components/Combat/HealthComponent.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://lib/comedot/Components/Combat/DamageComponent.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://Components/CoinCollectorComponent.tscn" id="7"]
+
+[node name="Hero" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+
+[node name="CharacterBodyComponent" parent="." instance=ExtResource("2")]
+
+[node name="PlatformerControlComponent" parent="." instance=ExtResource("3")]
+
+[node name="JumpControlComponent" parent="." instance=ExtResource("4")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("5")]
+max_health = 100.0
+
+[node name="DamageComponent" parent="." instance=ExtResource("6")]
+damage = 20.0
+
+[node name="CoinCollectorComponent" parent="." instance=ExtResource("7")] 
