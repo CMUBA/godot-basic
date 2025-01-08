@@ -47,16 +47,15 @@ func _on_create_confirm():
 		play_button.disabled = false
 		load_button.disabled = false
 		create_dialog.hide()
-		_on_play_pressed()
+		_start_game()
 
 func _on_play_pressed():
-	Events.emit_signal("game_started")
-	get_tree().change_scene_to_file("res://Scenes/Levels/Level1.tscn")
+	_start_game()
 
 func _on_load_pressed():
 	if Settings.has_setting("current_level"):
 		var level = Settings.get_setting("current_level", 1)
-		get_tree().change_scene_to_file("res://Scenes/Levels/Level%d.tscn" % level)
+		_start_game(level)
 
 func _on_quit_pressed():
 	get_tree().quit()
@@ -65,4 +64,11 @@ func _on_game_paused():
 	if not visible:
 		show()
 	else:
-		hide() 
+		hide()
+
+func _start_game(level: int = 1):
+	Events.emit_signal("game_started")
+	# Hide the main menu
+	hide()
+	# Change to the game scene
+	get_tree().change_scene_to_file("res://Scenes/Levels/Level%d.tscn" % level) 

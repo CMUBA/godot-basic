@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dnd7tflqufydd"
+path="res://.godot/imported/Campus Clash.mp3-dcf6a49667e2f3645c1397c4c506dd35.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/Campus Clash.mp3"
+dest_files=["res://.godot/imported/Campus Clash.mp3-dcf6a49667e2f3645c1397c4c506dd35.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

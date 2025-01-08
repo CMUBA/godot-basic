@@ -18,4 +18,10 @@ signal game_resumed
 
 # UI events
 signal show_message(text: String)
-signal hide_message 
+signal hide_message
+
+signal health_changed(new_health: int)
+signal coins_changed(new_coins: int)
+
+func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS 
